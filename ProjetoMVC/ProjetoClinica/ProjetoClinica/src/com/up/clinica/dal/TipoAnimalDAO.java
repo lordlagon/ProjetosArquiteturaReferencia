@@ -19,9 +19,9 @@ public class TipoAnimalDAO implements IGenericDAO<TipoAnimal, String>{
 	}
 
 	@Override
-	public TipoAnimal remover(String id) throws Exception {
+	public void remover(String id) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 	@Override
