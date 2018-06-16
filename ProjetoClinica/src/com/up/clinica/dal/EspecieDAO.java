@@ -13,7 +13,11 @@ public class EspecieDAO extends AbstractDAO<Especie, Long>{
 		// TODO Auto-generated method stub
 		
 	}
-
+	protected Especie removerComRelacionamentos(Animal animal) {
+		
+	}
+	
+	
 	@Override
 	protected PreparedStatement criarStatementPersistir(Connection conexao, Especie objeto) throws Exception {
 		// TODO Auto-generated method stub
