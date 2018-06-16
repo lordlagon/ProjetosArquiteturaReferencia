@@ -1,4 +1,4 @@
-package com.up.clinica.model.dao;
+package com.up.clinica.dal;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

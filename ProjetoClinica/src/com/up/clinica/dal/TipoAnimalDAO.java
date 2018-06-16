@@ -1,6 +1,8 @@
-package com.up.clinica.model;
+package com.up.clinica.dal;
 
 import java.util.List;
+
+import com.up.clinica.model.TipoAnimal;
 
 public class TipoAnimalDAO implements IGenericDAO<TipoAnimal, String>{
 
