@@ -49,40 +49,38 @@ public class EspecieDAO extends AbstractDAO<Especie, Long> {
 
 	@Override
 	protected PreparedStatement criarStatementPersistir(Connection conexao, Especie objeto) throws Exception {
-		PreparedStatement statement = conexao.prepareStatement(
-				"INSERT INTO ESPECIE (NOME,DESCRICAO,TIPO_ANIMAL_ACRONIMO) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
-		statement.setString(1, objeto.getNome());
-		if (objeto.getNascimento() != null)
-			statement.setDate(2, new java.sql.Date(objeto.getNascimento().getTime()));
-		else
-			statement.setNull(2, java.sql.Types.DATE);
-		statement.setLong(3, objeto.getEspecie().getId());
-		return statement;
+		 PreparedStatement statement = conexao.prepareStatement(
+	   			 "INSERT INTO ESPECIE (NOME,DESCRICAO,TIPO_ANIMAL_ACRONIMO) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
+	   	 statement.setString(1, objeto.getNome());
+	   	 statement.setString(2, objeto.getDescricao());
+	   	 statement.setString(3, objeto.getTipoAnimal().getAcronimo());
+	   	 return statement;
+
 	}
 
 	
 	
 	@Override
 	protected void carregarChavesGeradasNoObjeto(ResultSet generatedKeys, Especie objeto) throws Exception {
-		// TODO Auto-generated method stub
+		objeto.setId(generatedKeys.getLong(1));
 
 	}
 
-	protected void removerComRelacionamentos(Connection conexao, Long id) {
-		PreparedStatement statement = null;
+	protected void removerComRelacionamentos( Long id) {
+		PreparedStatement statementAnimal = null;
+		PreparedStatement statementEspecie = null;
+		Connection conexao =null;
+
 		try {
+			conexao = ConnectionFactory.getConnection();
 			conexao.setAutoCommit(false);
-			statement = conexao.prepareStatement("DELETE FROM ANIMAL WHERE ESPECIE_ID=?");
-			statement.setLong(1, id);
-			try {
-				if (statement != null)
-					statement.close();
-			} catch (Exception e) {
+			statementAnimal = conexao.prepareStatement("DELETE FROM ANIMAL WHERE ESPECIE_ID=?");
+			statementAnimal.setLong(1, id);
+			statementAnimal.executeUpdate();
 
-			}
-
-			statement = conexao.prepareStatement("DELETE FROM ESPECIE WHERE ID=?");
-			statement.setLong(1, id);
+			statementEspecie = conexao.prepareStatement("DELETE FROM ESPECIE WHERE ID=?");
+			statementEspecie.setLong(1, id);
+			statementEspecie.executeUpdate();
 			conexao.commit();
 		} catch (Exception e) {
 			if (conexao != null)
@@ -100,8 +98,14 @@ public class EspecieDAO extends AbstractDAO<Especie, Long> {
 
 			}
 			try {
-				if (statement != null)
-					statement.close();
+				if (statementEspecie != null)
+					statementEspecie.close();
+			} catch (Exception e) {
+
+			}
+			try {
+				if (statementAnimal != null)
+					statementAnimal.close();
 			} catch (Exception e) {
 
 			}
