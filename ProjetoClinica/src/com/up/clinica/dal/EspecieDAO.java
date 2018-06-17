@@ -10,7 +10,6 @@ import com.up.clinica.model.Especie;
 
 public class EspecieDAO extends AbstractDAO<Especie, Long> {
 
-
 	@Override
 	protected PreparedStatement criarStatementListar(Connection conexao) throws Exception {
 		return conexao.prepareStatement("select id,nome,descricao from especie");
@@ -25,7 +24,7 @@ public class EspecieDAO extends AbstractDAO<Especie, Long> {
 
 		return e;
 	}
-	
+
 	@Override
 	protected PreparedStatement criarStatementBuscar(Connection conexao, Long id) throws Exception {
 		PreparedStatement statement = conexao
@@ -49,27 +48,34 @@ public class EspecieDAO extends AbstractDAO<Especie, Long> {
 
 	@Override
 	protected PreparedStatement criarStatementPersistir(Connection conexao, Especie objeto) throws Exception {
-		 PreparedStatement statement = conexao.prepareStatement(
-	   			 "INSERT INTO ESPECIE (NOME,DESCRICAO,TIPO_ANIMAL_ACRONIMO) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
-	   	 statement.setString(1, objeto.getNome());
-	   	 statement.setString(2, objeto.getDescricao());
-	   	 statement.setString(3, objeto.getTipoAnimal().getAcronimo());
-	   	 return statement;
+		PreparedStatement statement = conexao.prepareStatement(
+				"INSERT INTO ESPECIE (NOME,DESCRICAO,TIPO_ANIMAL_ACRONIMO) VALUES (?,?,?)",
+				Statement.RETURN_GENERATED_KEYS);
+		statement.setString(1, objeto.getNome());
+		statement.setString(2, objeto.getDescricao());
+		statement.setString(3, objeto.getTipoAnimal().getAcronimo());
+		return statement;
 
 	}
 
-	
-	
+	@Override
+	protected PreparedStatement criarStatementRemover(Connection conexao, Long id) throws Exception {
+		PreparedStatement statement = conexao.prepareStatement("DELETE FROM ESPECIE WHERE id=?");
+		statement.setLong(1, id);
+		return statement;
+
+	}
+
 	@Override
 	protected void carregarChavesGeradasNoObjeto(ResultSet generatedKeys, Especie objeto) throws Exception {
 		objeto.setId(generatedKeys.getLong(1));
 
 	}
 
-	protected void removerComRelacionamentos( Long id) {
+	protected void removerComRelacionamentos(Long id) {
 		PreparedStatement statementAnimal = null;
 		PreparedStatement statementEspecie = null;
-		Connection conexao =null;
+		Connection conexao = null;
 
 		try {
 			conexao = ConnectionFactory.getConnection();
