@@ -16,6 +16,8 @@ import com.up.clinica.model.Animal;
 
 @WebServlet(name = "GetAnimais", urlPatterns = { "/GetAnimais" })
 public class AnimalService extends HttpServlet {
+
+
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -45,3 +47,5 @@ public class AnimalService extends HttpServlet {
 		}
 	}
 }
+	
+
