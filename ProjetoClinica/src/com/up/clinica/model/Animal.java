@@ -31,9 +31,9 @@ public class Animal {
 
 	public void setNome(String nome) throws Exception {
 		if (nome == null || nome.isEmpty())
-			throw new Exception("O nome não pode ser vazio.");
+			throw new Exception("O nome nï¿½o pode ser vazio.");
 		if (nome.length() > 50)
-			throw new Exception("O nome não pode ter mais de 50 caracteres.");
+			throw new Exception("O nome nï¿½o pode ter mais de 50 caracteres.");
 		this.nome = nome;
 	}
 
@@ -43,7 +43,7 @@ public class Animal {
 
 	public void setNascimento(Date nascimento) throws DateTimeException {
 		if (nascimento != null && (new Date()).compareTo(nascimento) < 0)
-			throw new DateTimeException("A data/hora de nascimento do animal não pode ser maior que a atual");
+			throw new DateTimeException("A data/hora de nascimento do animal nï¿½o pode ser maior que a atual");
 		this.nascimento = nascimento;
 	}
 }
