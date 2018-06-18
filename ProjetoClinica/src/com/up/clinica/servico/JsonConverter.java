@@ -20,10 +20,19 @@ public class JsonConverter {
 		 return jsonObject.toString();
 		 }
 	
-	public String convertToJson(List<Animal> animais) {
-		JsonArray jarray = gson.toJsonTree(animais).getAsJsonArray();
+//	public String convertToJson(List<Animal> animais) {
+//		JsonArray jarray = gson.toJsonTree(animais).getAsJsonArray();
+//		JsonObject jsonObject = new JsonObject();
+//		jsonObject.add("animais", jarray);
+//		return jsonObject.toString();
+//	}
+	
+	public <T> String convertToJson(List<T> t,String key) {
+		JsonArray jarray = gson.toJsonTree(t).getAsJsonArray();
 		JsonObject jsonObject = new JsonObject();
-		jsonObject.add("animais", jarray);
+		jsonObject.add(key, jarray);
 		return jsonObject.toString();
 	}
+	
+	
 }

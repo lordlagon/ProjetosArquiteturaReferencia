@@ -8,14 +8,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.up.clinica.dal.AnimalDAO;
+import com.up.clinica.dal.EspecieDAO;
 
 
-@WebServlet(name = "GetAnimais", urlPatterns = { "/GetAnimais" })
-public class AnimalService extends HttpServlet {
+@WebServlet(name = "GetEspecies", urlPatterns = { "/GetEspecies" })
+public class EspecieService extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private AnimalDAO aniDAO = new AnimalDAO();
+	private EspecieDAO especieDAO = new EspecieDAO();
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -24,7 +24,7 @@ public class AnimalService extends HttpServlet {
 			ServletOutputStream out = response.getOutputStream();
 						
 			JsonConverter converter = new JsonConverter();
-			String output = converter.convertToJson(aniDAO.listar(),"Animais");
+			String output = converter.convertToJson(especieDAO.listar(),"Especies");
 			out.print(output);
 		} catch (Exception e) {
 			e.printStackTrace();
